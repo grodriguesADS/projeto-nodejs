@@ -10,5 +10,4 @@ app.get('/', function(req,  res){
 }) 
 
 
-
 app.listen(3001, () => console.log("Server funcionando na porta 3001"))
