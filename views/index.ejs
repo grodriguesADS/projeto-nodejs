@@ -1,1 +1,15 @@
-<h1>Lista de Usuarios</h1>
+<h1>Lista de Pessoas</h1>
+
+<ul>
+    <% for(var i=0; i<Pessoas.find().length; i++) {%>
+        <li>
+            Nome: <%= items[i].name %>
+        </li>
+        <li>
+            Idade: <%= items[i].idade %>
+            <br>
+            <br>
+        </li>
+        <% } %>
+</ul>>
+
