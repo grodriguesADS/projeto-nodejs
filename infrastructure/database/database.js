@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 function connectDatabase() {
-    mongoose.connect('mongodb+srv://tk:root@cluster0.4zrke.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+    mongoose.connect('mongodb+srv://tk:.....@cluster0.4zrke.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
         useNewUrlParser: true,
     });
     const db = mongoose.connection;
