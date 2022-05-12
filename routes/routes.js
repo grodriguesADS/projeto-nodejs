@@ -2,41 +2,35 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express();
 const connectToDatabase = require('../infrastructure/database/database');
-var Schema = mongoose.Schema; 
 
-connectToDatabase();
 
-var userDataSchema = new Schema({  
-    name: {type: String},  
-    dateOdBithday: {type:String}
-   }, {collection: 'Pessoas'}); 
 
-   var Pessoas = mongoose.model('UserData', userDataSchema); 
+router.get('/', async (req, res, next) => {
+    try {
+      const docs = await connectToDatabase.findAll();
+      res.render('index', { title: 'Lista de Pessoas', docs });
+    } catch (err) {
+      next(err);
+    }
+  })
 
-router.get('/new', function(req, res, next){
-    res.render('new');
+  
+router.get('/new', (req, res, next) => {
+  res.render('new', { title: 'Novo Cadastro de Pessoa' });
 });
-
-router.post('/new', function (req, res, next) {
-    var item = {  
-        name: req.body.name,  
-        dateOdBithday: req.body.dateOdBithday 
-      }; 
-      var data = new Pessoas(item);  
-      data.save();
-      res.redirect('/');  
-}); 
-
-router.get('/', function(req, res, next) {  
-    Pessoas.find()  
-    .then(function(doc) {  
-      res.render('index', {items: doc});  
-    });  
- });  
    
-router.put('/user/:id', function (req, res) {
-    res.send(`Editar um usuário com o id ${req.params.id}`);
-});
+  router.post('/new', async (req, res, next) => {
+    const name = req.body.name;
+    const dateOfBithday = req.body.dateOfBithday;
+   
+    try {
+      const result = await connectToDatabase.insert({ name, dateOfBithday });
+      console.log(result);
+      res.redirect('/');
+    } catch (err) {
+      next(err);
+    }
+  })
 
 
 module.exports = router;

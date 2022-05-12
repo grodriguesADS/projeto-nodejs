@@ -1,15 +1,18 @@
-<h1>Lista de Pessoas</h1>
-
-<ul>
-    <% for(var i=0; i<Pessoas.find().length; i++) {%>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <ul>
+      <% docs.forEach(function(customer){ %>
         <li>
-            Nome: <%= items[i].name %>
+            <%= customer.name %>
+            <%= customer.dateOfBithday %>
         </li>
-        <li>
-            Idade: <%= items[i].idade %>
-            <br>
-            <br>
-        </li>
-        <% } %>
-</ul>>
-
+      <% }) %>
+    </ul>
+  </body>
+</html>
