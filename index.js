@@ -12,6 +12,7 @@ app.set('views', './views');
 
 USER_REGISTRATION_MODEL.sync();
 
+app.use(express. urlencoded());
 app.use(router);
 
 app.listen(3001, () => console.log("Server funcionando na porta 3001"))
