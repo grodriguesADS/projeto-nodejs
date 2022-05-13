@@ -31,5 +31,37 @@ router.post('/new', async (req, res, next) => {
     }
 })
 
+router.get('/new', (req, res, next) => {
+    res.render('new', { title: 'Novo Cadastro', doc: {"name":"","dateOfBithday":""}, action: '/new' });
+  });
+
+router.get('/edit/:id', async (req, res, next) => {
+    const id = req.params.id;
+  
+    try {
+      const doc = await connectToDatabase.findOne(id);
+      res.render('new', { title: 'Edição de Pessoa', doc, action: '/edit/' + doc._id });
+    } catch (err) {
+      next(err);
+    }
+  });
+
+router.post('/edit/:id', async (req, res) => {
+    const id = req.params.id;
+    const name = req.body.name;
+    const dateOfBithday = req.body.dateOfBithday;
+  
+    try {
+      const result = await connectToDatabase.update(id, { name, dateOfBithday });
+      console.log(result);
+      res.redirect('/');
+    } catch (err) {
+      next(err);
+    }
+  });
+
+
+
+
 
 module.exports = router;
